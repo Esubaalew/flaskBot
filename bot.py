@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from telegram import Update, Bot
 from telegram.ext import Dispatcher, CommandHandler
 import os
@@ -24,6 +24,10 @@ def start(update: Update, context):
 # Add handlers to dispatcher
 dispatcher.add_handler(CommandHandler("start", start))
 
+@app.route("/")
+def hello():
+    return jsonify(message="Hello from Flask on Vercel!")
+
 # Define webhook route
 @app.route(f'/{TOKEN}', methods=['POST'])
 def webhook():
@@ -34,7 +38,7 @@ def webhook():
 # Set webhook
 @app.route('/set_webhook', methods=['GET', 'POST'])
 def set_webhook():
-    webhook_url = f"https://example.et/{TOKEN}"
+    webhook_url = f"https://flaskbot.vercel.app/{TOKEN}"
     bot.set_webhook(webhook_url)
     return f"Webhook set to {webhook_url}"
 
