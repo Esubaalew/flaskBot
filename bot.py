@@ -38,7 +38,7 @@ def webhook():
 # Set webhook
 @app.route('/set_webhook', methods=['GET', 'POST'])
 def set_webhook():
-    webhook_url = f"https://flaskbot.vercel.app/{TOKEN}"
+    webhook_url = f"https://flaskingbot.vercel.app/{TOKEN}"
     bot.set_webhook(webhook_url)
     return f"Webhook set to {webhook_url}"
 
