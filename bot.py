@@ -29,7 +29,7 @@ def hello():
     return jsonify(message="Hello from Flask on Vercel!")
 
 # Define webhook route
-@app.route(f'/{TOKEN}', methods=['POST'])
+@app.route(f'/{os.getenv('TOKEN')}', methods=['POST'])
 def webhook():
     update = Update.de_json(request.get_json(), bot)
     dispatcher.process_update(update)
@@ -38,7 +38,7 @@ def webhook():
 # Set webhook
 @app.route('/set_webhook', methods=['GET', 'POST'])
 def set_webhook():
-    webhook_url = f"https://flaskingbot.vercel.app/{TOKEN}"
+    webhook_url = f"https://flaskingbot.vercel.app/{os.getenv('TOKEN')}"
     bot.set_webhook(webhook_url)
     return f"Webhook set to {webhook_url}"
 
